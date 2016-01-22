@@ -6,7 +6,7 @@ graphics, content and more. Whatever an issue can be created for, a bounty can
 be placed on it.
 
 ## Requirements
-- 21 Bitcoin Computer [https://21.co/buy](https:/21.co/buy)
+- 21 Bitcoin Computer [https://21.co/buy](https://21.co/buy)
 - GitHub Repository [https://github.com/](https://github.com/)
 
 ## How it works
