@@ -36,4 +36,18 @@ class github(object):
         # TODO: Take the response and check for an ACK, then return true, else handle error
         print(res)
 
-github.create_issue('test', 'test')
+    @staticmethod
+    def get_issue(issue_number):
+
+        github_url = "https://api.github.com/repos/" + repository['path'] + '/issues/' + issue_number
+        headers = { "Authorization": "token " + repository['token'], "Content-Type": "application/json" }
+
+        # Setup the request
+        req = urllib.request.Request(github_url, headers=headers)
+
+        # Make the request, capture the response
+        res = urllib.request.urlopen(req).read()
+        res = json.loads(res.decode())
+
+        return res['body']
+
