@@ -1,103 +1,466 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]>
-<!--><html class="no-js" lang="en"><!--<![endif]-->
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="utf-8" />
-    
-    <!-- Website Title & Description -->
-    <title>Git Money</title>
-    <meta name="description" content="Git Money turns issues and pull requests on GitHub into money.">
-    
-    <!-- Set the viewport width to device width for mobile -->
-    <meta name="viewport" content="width=device-width" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/favicon/apple-touch-icon-144x144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/favicon/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/favicon/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/favicon/apple-touch-icon-57x57-precomposed.png">
-    <link rel="shortcut icon" href="img/favicon/favicon.png" />
-    
-    <!-- Included CSS Files -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style1.css">
-    <link rel="stylesheet" href="css/supersized.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/supersized.shutter.css" type="text/css" media="screen" />
-    
-    <!-- Google Web Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,600,700,800,900,200italic,300italic,400italic' rel='stylesheet' type='text/css'>
-    
-    
-</head>
-<body>
-    
-    <!-- Slideshow Pattern-->
-    <div class="slideshow-pattern"></div>
-    
-    <div class="container">
-    <div class="row">
-    <div class="span8 offset2" id="home">
-    
-    	<div id="part1" class="fadeout_1">
-	        <h1>Git Money</h1>
-	        <h4><strong>Git Money turns issues and pull requests on GitHub into money.</strong></h4>
-		</div>	
-		
-		<div id="part2" class="fadeout_2">
-			<div class="row">
-			<div class="span8 links">
-				<div class="row">
-				
-				<div id="part2_1" class="fadeout_2_1">
-					<div class="span2 offset2">
-						<strong><a href="https://github.com/21hackathon/git-money" target="_blank">REPO</a></strong>
-					</div>
-				</div>
-				
-				<div id="part2_2" class="fadeout_2_2">	
-					<div class="span2">
-						<strong><a href="https://slack.21.co/" target="_blank">SLACK</a></strong>
-					</div>
-				</div>
-				
-				</div>
-			</div>
-			</div> 
-		</div>
-		
-	    </div>
-    </div>
-    </div>
+<meta charset="UTF-8">
+<meta name="description" content="Bitcoin bounties for pull requests.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <div class="footer">
-    <div id="part6">
+<!-- SITE TITLE -->
+<title>git Money - Code for cash</title>
+
+<!-- =========================
+      FAV AND TOUCH ICONS  
+============================== -->
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+<!-- =========================
+     STYLESHEETS   
+============================== -->
+<!-- BOOTSTRAP -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<!-- FONT ICONS -->
+<link rel="stylesheet" href="assets/elegant-icons/style.css">
+<link rel="stylesheet" href="assets/app-icons/styles.css">
+<!--[if lte IE 7]><script src="lte-ie7.js"></script><![endif]-->
+
+<!-- WEB FONTS -->
+<link href='http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,400,300italic' rel='stylesheet' type='text/css'>
+
+<!-- CAROUSEL AND LIGHTBOX -->
+<link rel="stylesheet" href="css/owl.theme.css">
+<link rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/nivo-lightbox.css">
+<link rel="stylesheet" href="css/nivo_themes/default/default.css">
+
+<!-- ANIMATIONS -->
+<link rel="stylesheet" href="css/animate.min.css">
+
+<!-- CUSTOM STYLESHEETS -->
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- COLORS -->
+<link rel="stylesheet" href="css/colors/green.css">
+
+<!-- RESPONSIVE FIXES -->
+<link rel="stylesheet" href="css/responsive.css">
+
+
+<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+			<script src="js/respond.min.js"></script>
+<![endif]-->
+
+<!-- JQUERY -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER   
+============================== -->
+<header class="header" data-stellar-background-ratio="0.5" id="home">
+
+<!-- COLOR OVER IMAGE -->
+<div class="color-overlay"> <!-- To make header full screen. Use .full-screen class with color overlay. Example: <div class="color-overlay full-screen">  -->
+	
+	<!-- STICKY NAVIGATION -->
+	<div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation">
+		<div class="container">
+			<div class="navbar-header">
+				
+				<!-- LOGO ON STICKY NAV BAR -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#kane-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+
+				<a class="navbar-brand" href="#"><img src="images/logo.png" alt=""></a>
+				
+			</div>
+			
+			<!-- NAVIGATION LINKS -->
+			<div class="navbar-collapse collapse" id="kane-navigation">
+				<ul class="nav navbar-nav navbar-right main-navigation">
+					<li><a href="#brief1">Features</a></li>
+					<li><a href="#brief2">Free Market</a></li>
+					<li><a href="#services">How it Works</a></li>
+					<li><a href="#screenshot-section">Popular Repos</a></li>
+					<li><a href="#download">Fork Git Money</a></li>
+				</ul>
+			</div>
+		</div> <!-- /END CONTAINER -->
+	</div> <!-- /END STICKY NAVIGATION -->
+	
+	
+	<!-- CONTAINER -->
 	<div class="container">
+		
+		<!-- ONLY LOGO ON HEADER -->
+		<div class="only-logo">
+			<div class="navbar">
+				<div class="navbar-header">
+					<img src="images/logo.png" alt="">
+				</div>
+			</div>
+		</div> <!-- /END ONLY LOGO ON HEADER -->
+		
+		
 		<div class="row">
-			<div class="span12">
-			<p class="footer-21bc">				
-				<strong><a href="https://21.co/buy/" target="_blank">Powered by a Bitcoin Computer</a>.</strong>
-			</p>
+			<div class="col-md-8 col-md-offset-2">
+				
+				<!-- HEADING AND BUTTONS -->
+				<div class="intro-section">
+					
+					<!-- WELCOME MESSAGE -->
+					<h1 class="intro">Work from anywhere.</h1>
+					<h5>Code for cash and get paid for all of your pull requests.</h5>
+					
+					<!-- BUTTON -->
+					<div class="buttons" id="download-button">
+						
+						<a href="#brief1" class="btn btn-default btn-lg standard-button">LEARN MORE</a>
+						
+					</div>
+					<!-- /END BUTTONS -->
+					
+				</div>
+				<!-- /END HEADING AND BUTTONS -->
+				
 			</div>
 		</div>
+		<!-- /END ROW -->
+		
 	</div>
-	</div>
-	</div>
+	<!-- /END CONTAINER -->
+</div>
+<!-- /END COLOR OVERLAY -->
+</header>
+<!-- /END HEADER -->
+
+<!-- =========================
+     BRIEF LEFT SECTION 
+============================== -->
+<section class="app-brief deep-dark-bg" id="brief1">
+
+<div class="container">
 	
-    </div> <!-- /map-content -->
+	<div class="row">
+		
+		<!-- RIGHT SIDE WITH BRIEF -->
+		<div class="col-md-12 left-align wow fadeInLeft animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SECTION TITLE -->
+			<h2 class="white-text">Get paid developing what you want to work on</h2>
+			
+			<div class="colored-line-left">
+			</div>
+			
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			</p>
+			
+			<!-- FEATURE LIST -->
+			<ul class="feature-list">
+				<li><i class="icon_lock_alt"></i> Feature </li>
+				<li><i class="icon_check_alt2"></i> Feature </li>
+				<li><i class="icon_paperclip"></i> Feature</li>
+				<li><i class="icon_adjust-vert"></i> Feature</li>
+			</ul>
+			
+		</div>
+		<!-- /END RIGHT BRIEF -->
+		
+	</div>
+	<!-- /END ROW -->
+	
+</div>
+<!-- /END CONTAINER -->
+
+</section>
+<!-- /END SECTION -->
+
+
+<!-- =========================
+     BRIEF RIGHT SECTION 
+============================== -->
+<section class="app-brief" id="brief2">
+
+<div class="container">
+	
+	<div class="row">
+		
+		<!-- BRIEF -->
+		<div class="col-md-12 left-align wow fadeInLeft animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SECTION TITLE -->
+			<h2 class="white-text">Let your code speak for itself</h2>
+			
+			<div class="colored-line-left">
+			</div>
+			
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/>
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			
+		</div>
+		<!-- /ENDBRIEF -->
+
+	</div>
+	<!-- /END ROW -->
+	
+</div>
+<!-- /END CONTAINER -->
+
+</section>
+<!-- /END SECTION -->
+
+
+<!-- =========================
+     BRIEF LEFT SECTION WITH VIDEO 
+============================== -->
+<section class="app-brief deep-dark-bg" id="brief1">
+
+<div class="container">
+	
+	<div class="row">
+		
+		<!-- RIGHT SIDE WITH BRIEF -->
+		<div class="col-md-12 left-align wow fadeInLeft animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SECTION TITLE -->
+			<h2 class="white-text">Not a coder? You can still get paid for contributing</h2>
+			
+			<div class="colored-line-left">
+			</div>
+			
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br/><br/>
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+			</p>
+			
+			
+		</div>
+		<!-- /END RIGHT BRIEF -->
+		
+	</div>
+	<!-- /END ROW -->
+	
+</div>
+<!-- /END CONTAINER -->
+
+</section>
+<!-- /END SECTION -->
+
+<!-- =========================
+     SERVICES
+============================== -->
+<section class="services" id="services">
+
+<div class="container">
+	
+	<!-- SECTION HEADER -->
+	<div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+		
+		<!-- SECTION TITLE -->
+		<h2 class="white-text">Create your branch now</h2>
+		
+		<div class="colored-line">
+		</div>
+		<div class="section-description">
+			Lorem ipsum dolor kadr
+		</div>
+		<div class="colored-line">
+		</div>
+		
+	</div>
+	<!-- /END SECTION HEADER -->
+	
+	<div class="row">
+		
+		<!-- SINGLE SERVICE -->
+		<div class="col-md-4 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SERVICE ICON -->
+			<div class="service-icon">
+				<i class="icon_cloud-upload_alt"></i>
+			</div>
+			
+			<!-- SERVICE HEADING -->
+			<h3>Data tuum in Cloud</h3>
+			
+			<!-- SERVICE DESCRIPTION -->
+			<p>
+				 Fructus autem crescite fructifera dixit creavit eum perduceret constituit, et ecce tenebræ Numquid luminaria altum pisces tempora ipea adducam super similitudinem eorum quorum implerent saccos eorum. Quibus tenebrae vesperae multiplicabo eos omnes pauperes spiritu, quoniam non est ei omnis terra youll caelum ferre.
+			</p>
+			
+		</div>
+		<!-- /END SINGLE SERVICE -->
+		
+		<!-- SINGLE SERVICE -->
+		<div class="col-md-4 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SERVICE ICON -->
+			<div class="service-icon">
+				<i class="icon_gift_alt"></i>
+			</div>
+			
+			<!-- SERVICE HEADING -->
+			<h3>Praemia</h3>
+			
+			<!-- SERVICE DESCRIPTION -->
+			<p>
+				 Aliquam et dui mauris. Donec vitae velit turpis. In convallis, nisi id vehicula aliquam, dui sem mattis nisi, vitae vulputate ante eros sit amet quam. Nam vitae eros ac felis commodo rutrum ac in ante. Etiam ut finibus est. Sed a aliquet metus, non sagittis erat. Curabitur laoreet ante enim, tempor egestas purus eleifend sit amet. Mauris consequat non odio vitae port.
+			</p>
+			
+		</div>
+		<!-- /END SINGLE SERVICE -->
+		
+		<!-- SINGLE SERVICE -->
+		<div class="col-md-4 single-service wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+			
+			<!-- SERVICE ICON -->
+			<div class="service-icon">
+				<i class="icon_chat_alt"></i>
+			</div>
+			
+			<!-- SERVICE HEADING -->
+			<h3>Subsidium</h3>
+			
+			<!-- SERVICE DESCRIPTION -->
+			<p>
+				 Vivamus justo justo, euismod et elementum in, sagittis ac massa. Pellentesque mattis, nulla eget sagittis sollicitudin, enim dui consectetur est, nec rhoncus metus dui ac lectus. Mauris vitae lacus vitae arcu congue egestas sed id nulla. Aenean non ornare purus, id pharetra sem.
+			</p>
+			
+		</div>
+		<!-- /END SINGLE SERVICE -->
+		
+	</div>
+	<!-- /END ROW -->
+	
+</div>
+<!-- /END CONTAINER -->
+
+</section>
+<!-- /END FEATURES SECTION -->
+
+
+
+<!-- =========================
+     BOUNTIES
+============================== -->
+<section class="screenshots deep-dark-bg" id="screenshot-section">
+
+<div class="container">
+	
+	<!-- SECTION HEADER -->
+	<div class="section-header wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+		
+		<!-- SECTION TITLE -->
+		<h2 class="white-text">Popular Repos w/ Bounties</h2>
+		
+		<div class="colored-line">
+		</div>
+		<div class="section-description">
+			Below are a few of the most popular repositories where you can find bounties.
+		</div>
+		<div class="colored-line">
+		</div>
+		
+	</div>
+	<!-- /END SECTION HEADER -->
+	
+	<div class="row wow bounceIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+		
+		<div id="screenshots" class="owl-carousel owl-theme">
+			
+			<div class="shot">
+				<a href="images/screenshots/1.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/1.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/3.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/3.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/2.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/2.jpg" alt="Screenshot"></a>
+			</div>
+			
+			<div class="shot">
+				<a href="images/screenshots/4.jpg" data-lightbox-gallery="screenshots-gallery"><img src="images/screenshots/4.jpg" alt="Screenshot"></a>
+			</div>
+			
+		</div>
+		<!-- /END SCREENSHOTS -->
+		
+	</div>
+	<!-- /END ROW -->
+	
+</div>
+<!-- /END CONTAINER -->
+
+</section>
+<!-- /END SCREENSHOTS SECTION -->
+
+
+<!-- =========================
+     FOOTER 
+============================== -->
+<footer>
+
+<div class="container">
+	
+	<div class="contact-box wow rotateIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+	
+	<!-- LOGO -->
+	<img src="images/logo.png" alt="LOGO" class="responsive-img">
+	
+	<!-- SOCIAL ICONS -->
+	<ul class="social-icons">
+		<li><a href=""><i class="social_facebook_square"></i></a></li>
+		<li><a href=""><i class="social_twitter_square"></i></a></li>
+		<li><a href=""><i class="social_googleplus_square"></i></a></li
+	</ul>
+	
+	<!-- COPYRIGHT TEXT -->
+	<p class="copyright">
+		© 2016 gitMoney.io<br/><a href="https://21.co/buy/" target="_blank">Powered by a 21 Bitcoin Computer</a>.
+	</p>
+
+</div>
+<!-- /END CONTAINER -->
  
-	<!-- Javascript -->
-    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/device.min.js"></script>
-    <script type="text/javascript" src="js/supersized.3.2.7.min.js"></script>
-	<script type="text/javascript" src="js/supersized.shutter.min.js"></script>
-	<script type="text/javascript" src="js/jquery.countdown.js"></script>
-    <script type="text/javascript" src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
-  
+</footer>
+<!-- /END FOOTER -->
+
+
+<!-- =========================
+     SCRIPTS 
+============================== -->
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/jquery.localScroll.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/nivo-lightbox.min.js"></script>
+<script src="js/simple-expand.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.nav.js"></script>
+<script src="js/matchMedia.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="js/jquery.fitvids.js"></script>
+<script src="js/custom.js"></script>
+
 </body>
 </html>
