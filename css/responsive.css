@@ -3,24 +3,25 @@
 RESPONSIVE FIXES
 =========================================
 -----------------------------------------*/
- 
 
- @media (max-width: 1024px) {
+@media (max-width: 1024px) {
 
     .animated {
         -webkit-transform: translateZ(0);
     }
 
     
+      header {
+        background-attachment: scroll;
+    }
+}
+
+ @media (max-width: 991px) {
  
     
     body {
         font-size: 15px;
         line-height: 26px;
-    }
-
-    header {
-        background-attachment: scroll;
     }
 
     header .color-overlay {
@@ -37,7 +38,7 @@ RESPONSIVE FIXES
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 991px) {
  
     
     html {
@@ -47,12 +48,12 @@ RESPONSIVE FIXES
     header .color-overlay {
         min-height: 780px;
     }
-
+    
     .sticky-navigation .navbar-header {
         width: 100%;
-        position: relative;
-        text-align: center;
-        margin-top: 10px;
+		position: relative;
+		text-align: center;
+		margin-top: 10px;
     }
     .sticky-navigation .navbar-header a {
         float: none !important;
@@ -63,20 +64,15 @@ RESPONSIVE FIXES
     }
     
     .sticky-navigation .main-navigation {
-        text-align: center;
-        width: 100%;
-        padding-top: 0;
-    }
+		text-align: center;
+		width: 100%;
+		padding-top: 0;
+	}
 
     header .intro-section {
-        padding-top: 0;
+        padding-top: 10%;
     }
-    
-    header .phone-image {
-        max-width: 265px;
-        margin-top: 5%;
-    }
-    
+
     .features .features-left,
     .features .features-right {
         margin-top: 0;
@@ -109,19 +105,18 @@ RESPONSIVE FIXES
     }
     
     .navbar-inverse .navbar-nav {
-        padding-left: 10px;
-        line-height: normal;
-        text-align: center;
-    }
+		padding-left: 10px;
+		line-height: normal;
+		text-align: center;
+	}
 
-    .navbar-inverse .navbar-nav>li {
-        display: inline-block;
-        margin-bottom: 0;
-    }
+	.navbar-inverse .navbar-nav>li {
+		display: inline-block;
+		margin-bottom: 0;
+	}
 
     header .intro-section {
         padding-top: 9%;
-        text-align: center;
     }
 
     .features .features-left,
@@ -153,6 +148,8 @@ RESPONSIVE FIXES
 }
 
 @media (max-width: 480px) {
+ 
+    
     html {
         font-size: 65%;
     }
@@ -180,7 +177,7 @@ RESPONSIVE FIXES
     header .intro-section .buttons {
         margin-top: 15px;
     }
-
+    
     .testimonials, 
     .download { 
         background-attachment: inherit !important; 
@@ -204,6 +201,8 @@ RESPONSIVE FIXES
         -moz-background-clip: padding;
         background-clip: padding-box;
     }
+
+
 }
 
 @media (max-width: 320px) {
@@ -212,7 +211,6 @@ RESPONSIVE FIXES
     html {
         font-size: 60.5%;
     }
-    
 }
 
 
