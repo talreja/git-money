@@ -8,9 +8,11 @@ import subprocess
 import requests
 import ipaddress
 import hmac
+import wallet
 from hashlib import sha1
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
+from commonregex import CommonRegex
 
 """
 Conditionally import ProxyFix from werkzeug if the USE_PROXYFIX environment
@@ -24,15 +26,12 @@ module.
     import flask-github-webhook-handler.index as handler
 
 """
+
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 app.debug = os.environ.get('DEBUG') == 'true'
-
-# The repos.json file should be readable by the user running the Flask app,
-# and the absolute path should be given by this environment variable.
-REPOS_JSON_PATH = os.environ['REPOS_JSON_PATH']
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -58,7 +57,8 @@ def index():
             merge_status = request.json['pull_request']['merged']
             merge_body = request.json['pull_request']['body']            
             if (merge_status == True):
-                print(merge_body)
+                parsed_merge_body = CommonRegex(merge_body)
+                wallet.send(parsed_merge_body.btc_addresses[0], 10000)
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
