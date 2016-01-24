@@ -1,7 +1,7 @@
 {
-    "21hackathon/git-money": {
-	"path": "/twenty/dev",
-	"key": "secret",
-	"action": [["git", "pull", "origin", "master"], ],
-    }
+    "path": "",
+    "token": "",
+    "key": "secret",
+    "action": [["git", "pull", "origin", "master"] ]
+    
 }
