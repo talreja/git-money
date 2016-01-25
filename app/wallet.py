@@ -8,7 +8,7 @@ from two1.commands.config import TWO1_HOST
 conf = Config()
 
 def send(address, satoshis, use_unconfirmed):
-
+    print(address,satoshis)
     w = conf.wallet
     balance = min(w.confirmed_balance(),
                   w.unconfirmed_balance())
@@ -44,5 +44,5 @@ def send(address, satoshis, use_unconfirmed):
             txids = []
         else:
             print(str(e))
-    return txids
-    
+    print(txids)
+

@@ -1,7 +1,13 @@
 import string
 from hashlib import sha256
+import requests
 
 digits58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+
+def get_address_balance(address):
+    addressAPI = 'http://btc.blockr.io/api/v1/address/balance/' + address
+    r = requests.get(addressAPI)
+    return r.json()['data']['balance']
 
 def _bytes_to_long(bytestring, byteorder):
     """Convert a bytestring to a long
@@ -102,3 +108,4 @@ def validate(bitcoin_address, magicbyte=0):
     # for example '14oLvT2' has a valid checksum, but is not a valid btc
     # address
     return bitcoin_address == encode_base58(bcbytes)
+

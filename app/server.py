@@ -8,9 +8,11 @@ import subprocess
 import requests
 import ipaddress
 import hmac
+import wallet, github, utils
 from hashlib import sha1
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
+from commonregex import CommonRegex
 
 """
 Conditionally import ProxyFix from werkzeug if the USE_PROXYFIX environment
@@ -24,15 +26,12 @@ module.
     import flask-github-webhook-handler.index as handler
 
 """
+
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 app.debug = os.environ.get('DEBUG') == 'true'
-
-# The repos.json file should be readable by the user running the Flask app,
-# and the absolute path should be given by this environment variable.
-REPOS_JSON_PATH = os.environ['REPOS_JSON_PATH']
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -55,10 +54,15 @@ def index():
             return json.dumps({'msg': 'Hi!'})
 
         if request.headers.get('X-GitHub-Event') == 'pull_request':
-            merge_status = request.json['pull_request']['merged']
-            merge_body = request.json['pull_request']['body']            
-            if (merge_status == True):
-                print(merge_body)
+            merge_state = request.json['pull_request']['state']
+            merge_body = request.json['pull_request']['body']
+            if (merge_state == 'closed'):
+                print('Merge state closed')
+                parsed_merge_body = CommonRegex(merge_body)
+                parsed_bounty_issue = re.findAll(r"#\w+)", merge_body)
+                bounty_address = github.get_address_from_issue(parsed_bounty_issue[0])
+                amount = utils.get_address_balance(bounty_address)
+                wallet.send(parsed_merge_body.btc_addresses[0], amount, True)
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
@@ -110,4 +114,4 @@ def bounty_badge(path):
 if __name__ == "__main__":
     if os.environ.get('USE_PROXYFIX', None) == 'true':
         app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(host='0.0.0.0', port='21337')
+    app.run(host='0.0.0.0', port='21336')
