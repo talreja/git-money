@@ -24,7 +24,10 @@ class github(object):
         params = github._decorate_issue_params(issue_title, description)
 
         github_url = "https://api.github.com/repos/" + repository['path'] + "/issues"
-        headers = { "Authorization": "token " + repository['token'], "Content-Type": "application/json" }
+        headers = { "Authorization": "token " + repository['token'],
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache, no-store, must-revalidate"
+        }
 
         # Setup the request
         req = urllib.request.Request(github_url, data=params, headers=headers)
