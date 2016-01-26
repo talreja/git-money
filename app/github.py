@@ -1,5 +1,6 @@
 import json, os, io, datetime
 import urllib.request
+from commonregex import CommonRegex
 from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
 
@@ -40,7 +41,7 @@ class github(object):
         print(res)
 
     @staticmethod
-    def get_issue(issue_number):
+    def get_address_from_issue(issue_number):
 
         github_url = "https://api.github.com/repos/" + repository['path'] + '/issues/' + issue_number
         headers = { "Authorization": "token " + repository['token'], "Content-Type": "application/json" }
@@ -52,5 +53,8 @@ class github(object):
         res = urllib.request.urlopen(req).read()
         res = json.loads(res.decode())
 
-        return res['body']
+        body = res['body']
+        address = CommonRegex(body).btc_addresses[0]
+
+        return address
 

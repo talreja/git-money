@@ -8,7 +8,8 @@ import subprocess
 import requests
 import ipaddress
 import hmac
-import wallet, github, utils
+import wallet, utils
+from github import github
 from hashlib import sha1
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
@@ -47,8 +48,7 @@ def index():
             hook_blocks = [os.environ.get('GHE_ADDRESS')]
         # Otherwise get the hook address blocks from the API.
         else:
-            hook_blocks = requests.get('https://api.github.com/meta').json()[
-                'hooks']
+            hook_blocks = requests.get('https://api.github.com/meta').json()['hooks']
 
         if request.headers.get('X-GitHub-Event') == "ping":
             return json.dumps({'msg': 'Hi!'})
@@ -58,11 +58,11 @@ def index():
             merge_body = request.json['pull_request']['body']
             if (merge_state == 'closed'):
                 print('Merge state closed')
-                parsed_merge_body = CommonRegex(merge_body)
-                parsed_bounty_issue = re.findAll(r"#\w+)", merge_body)
+                addresses = CommonRegex(merge_body).btc_addresses[0]
+                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
                 bounty_address = github.get_address_from_issue(parsed_bounty_issue[0])
                 amount = utils.get_address_balance(bounty_address)
-                wallet.send(parsed_merge_body.btc_addresses[0], amount, True)
+                wallet.send(addresses, int(amount * 1e8), True)
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
