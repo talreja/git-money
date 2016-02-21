@@ -1,6 +1,6 @@
 {
     "path": "21hackathon/git-money",
-    "token": "66f3537ff75dc1de1ccd4dd6d680f78f870ef67f",
+    "token": "",
     "key": "",
     "action": [["git", "pull", "origin", "master"] ],
     "address": "1DxmRibidDa1B9VGLmTa55vvqzd4YTtNUc"
