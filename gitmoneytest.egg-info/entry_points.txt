@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        gitmoneytest=app.cli:cli
+    
