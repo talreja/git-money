@@ -1,6 +1,0 @@
-gitmoneytest.egg-info/PKG-INFO
-gitmoneytest.egg-info/SOURCES.txt
-gitmoneytest.egg-info/dependency_links.txt
-gitmoneytest.egg-info/entry_points.txt
-gitmoneytest.egg-info/requires.txt
-gitmoneytest.egg-info/top_level.txt
