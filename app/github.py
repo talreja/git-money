@@ -12,8 +12,9 @@ class github(object):
 
         bitcoin_address = repository['address']
         bounty_image = 'http://git-money-badge.mybluemix.net/badge/' + bitcoin_address
-        issue_title = "Testing: " + str(datetime.datetime.now())
-        description = "<h6>Reward  (" + bitcoin_address + ")</h>\n\n![BOUNTY](" + bounty_image + ")"
+#        issue_title = "Testing: " + str(datetime.datetime.now())
+        issue_title = issue_title
+        description = "<h6>Reward  (" + bitcoin_address + ")</h>\n\n![BOUNTY](" + bounty_image + ")" + "\n\n" + description
 
         params = { "title": issue_title, "body": description }
         params = json.dumps(params).encode('utf8')
