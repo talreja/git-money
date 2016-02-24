@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import json
+import hashlib
 import subprocess
 import requests
 import ipaddress
@@ -11,6 +12,7 @@ import hmac
 import wallet, utils
 from github import github
 from hashlib import sha1
+from multisig_wallet import multisig_wallet
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
 from commonregex import CommonRegex
@@ -27,6 +29,9 @@ module.
     import flask-github-webhook-handler.index as handler
 
 """
+config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
+repository = json.loads(io.open(config_path, 'r').read())
+repository_path = repository['path']
 
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
@@ -58,11 +63,19 @@ def index():
             merge_body = request.json['pull_request']['body']
             if (merge_state == 'closed'):
                 print('Merge state closed')
+                issue_title = request.json['pull-request']['title']
+                issue_title = str(issue_title)
+                repository_path = str(repository_path)
+
+                issue_title = issue_title.encode('utf-8')
+                repository_path = repository_path.encode('utf-8')
+                passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
+
                 addresses = CommonRegex(merge_body).btc_addresses[0]
                 parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
                 bounty_address = github.get_address_from_issue(parsed_bounty_issue[0])
                 amount = utils.get_address_balance(bounty_address)
-                wallet.send(addresses, int(amount * 1e8), True)
+                multisig_wallet.send_bitcoin(str(issue_name), str(addresses), int(amount * 1e8), str(passphrase))
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
