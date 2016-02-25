@@ -63,18 +63,22 @@ def index():
             merge_body = request.json['pull_request']['body']
             if (merge_state == 'closed'):
                 print('Merge state closed')
-                issue_title = request.json['pull-request']['title']
-                issue_title = str(issue_title)
-                repository_path = str(repository_path)
+                print('Merge Body: ' + merge_body)
+                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)[0]
 
-                issue_title = issue_title.encode('utf-8')
-                repository_path = repository_path.encode('utf-8')
+                repository_path_encode = str(repository_path)
+                repository_path_encode = repository_path.encode('utf-8')
+
+                bounty_issue_encode = str(parsed_bounty_issue)
+                bounty_issue_encode = bounty_issue_encode.encode('utf-8')
                 passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
-
                 addresses = CommonRegex(merge_body).btc_addresses[0]
                 parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
-                bounty_address = github.get_address_from_issue(parsed_bounty_issue[0])
+                bounty_address = github.get_address_from_issue(parsed_bounty_issue)
                 amount = utils.get_address_balance(bounty_address)
+                with open(DEFAULT_WALLET_PATH, 'r') as f:
+                    json_data = json.load(f)
+                issue_name = json_data[parsed_bounty_issue]
                 multisig_wallet.send_bitcoin(str(issue_name), str(addresses), int(amount * 1e8), str(passphrase))
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
