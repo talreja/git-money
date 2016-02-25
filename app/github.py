@@ -1,5 +1,6 @@
 import json, os, io, datetime, hashlib
 import requests
+from flask import g
 from commonregex import CommonRegex
 from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
@@ -8,16 +9,29 @@ from multisig_wallet import multisig_wallet
 config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
+DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
+                                   ".two1",
+                                   "wallet",
+                                   "multisig_wallet.json")
 
 class github(object):
+    def get_github_issue(issue_number):
+        print('This is the issue number we are looking up')
+        url = 'https://api.github.com/repos/21hackers/git-money/issues/' + issue_number
+        try: 
+            r = requests.get(url)
+        except:
+            print("Github issue fetch failed, please ensure that your repository path is properly configured")
+        return r.json()['title']
+        
     def _create_bitgo_wallet(issue_title, repository_path):
-        issue_title = str(issue_title)
-        repository_path = str(repository_path)
+        issue_title_encode = str(issue_title)
+        repository_path_encode = str(repository_path)
 
-        issue_title = issue_title.encode('utf-8')
-        repository_path = repository_path.encode('utf-8')
-        passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
-        multisig_wallet.create_wallet(str(issue_title), str(passphrase))
+        issue_title_encode = issue_title.encode('utf-8')
+        repository_path_encode = repository_path.encode('utf-8')
+        passphrase = hashlib.sha256(repository_path_encode + issue_title_encode).hexdigest()
+        multisig_wallet.create_wallet(issue_title, passphrase)
         print('Wallet create')
         bounty_address = multisig_wallet.generate_address(str(issue_title))
         print('Bounty address created')
@@ -51,6 +65,15 @@ class github(object):
         except:
             return print("Github issue creation failed, please ensure that your repository path is properly configured")
 
+        issue_number=r.json()['number']
+        with open(DEFAULT_WALLET_PATH, 'r') as f:
+            json_data = json.load(f)
+            ## ISSUE_TITLE is set as the wallet label / name
+            json_data[-1]['issue_number'] = issue_number
+
+        with open(DEFAULT_WALLET_PATH, 'w') as f:
+            f.write(json.dumps(json_data))
+        
         # TODO: Take the response and check for an ACK, then return true, else handle error
         print(r.json())
 
