@@ -33,6 +33,11 @@ config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.js
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
 
+DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
+                                   ".two1",
+                                   "wallet",
+                                   "multisig_wallet.json")
+
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
 
@@ -65,21 +70,30 @@ def index():
                 print('Merge state closed')
                 print('Merge Body: ' + merge_body)
                 parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)[0]
-
-                repository_path_encode = str(repository_path)
-                repository_path_encode = repository_path.encode('utf-8')
-
-                bounty_issue_encode = str(parsed_bounty_issue)
-                bounty_issue_encode = bounty_issue_encode.encode('utf-8')
-                passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
                 addresses = CommonRegex(merge_body).btc_addresses[0]
-                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
                 bounty_address = github.get_address_from_issue(parsed_bounty_issue)
-                amount = utils.get_address_balance(bounty_address)
-                with open(DEFAULT_WALLET_PATH, 'r') as f:
-                    json_data = json.load(f)
-                issue_name = json_data[parsed_bounty_issue]
-                multisig_wallet.send_bitcoin(str(issue_name), str(addresses), int(amount * 1e8), str(passphrase))
+                amount = multisig_wallet.get_address_balance(bounty_address)
+                try:
+                    # use username to look up wallet Id
+                    with open(DEFAULT_WALLET_PATH, 'r') as wallet:
+                        data = json.loads(wallet.read())
+                    for user in data:
+                        try:
+                            if (user['issue_number'] == int(parsed_bounty_issue)):
+                                print('Wallet found')
+                                wallet_name = user['wallet_name']
+                                walletId = user[wallet_name]['walletId']
+                        except:
+                            print('Loading wallet..')        
+
+                except:
+                    print('Wallet not found, creating new user...')
+
+                issue_title = wallet_name
+                repository_path_encode = repository_path.encode('utf-8')
+                issue_title_encode = issue_title.encode('utf-8')
+                passphrase = hashlib.sha256(repository_path_encode + issue_title_encode).hexdigest()
+                multisig_wallet.send_bitcoin_simple(walletId, str(addresses), amount, passphrase)
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
