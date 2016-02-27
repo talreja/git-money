@@ -4,13 +4,18 @@ import os
 import re
 import sys
 import json
+import hashlib
 import subprocess
 import requests
 import ipaddress
 import hmac
+import wallet, utils
+from github import github
 from hashlib import sha1
+from multisig_wallet import multisig_wallet
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
+from commonregex import CommonRegex
 
 """
 Conditionally import ProxyFix from werkzeug if the USE_PROXYFIX environment
@@ -24,15 +29,15 @@ module.
     import flask-github-webhook-handler.index as handler
 
 """
+config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
+repository = json.loads(io.open(config_path, 'r').read())
+repository_path = repository['path']
+
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 app.debug = os.environ.get('DEBUG') == 'true'
-
-# The repos.json file should be readable by the user running the Flask app,
-# and the absolute path should be given by this environment variable.
-REPOS_JSON_PATH = os.environ['REPOS_JSON_PATH']
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -48,17 +53,33 @@ def index():
             hook_blocks = [os.environ.get('GHE_ADDRESS')]
         # Otherwise get the hook address blocks from the API.
         else:
-            hook_blocks = requests.get('https://api.github.com/meta').json()[
-                'hooks']
+            hook_blocks = requests.get('https://api.github.com/meta').json()['hooks']
 
         if request.headers.get('X-GitHub-Event') == "ping":
             return json.dumps({'msg': 'Hi!'})
 
         if request.headers.get('X-GitHub-Event') == 'pull_request':
-            merge_status = request.json['pull_request']['merged']
-            merge_body = request.json['pull_request']['body']            
-            if (merge_status == True):
-                print(merge_body)
+            merge_state = request.json['pull_request']['state']
+            merge_body = request.json['pull_request']['body']
+            if (merge_state == 'closed'):
+                print('Merge state closed')
+                print('Merge Body: ' + merge_body)
+                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)[0]
+
+                repository_path_encode = str(repository_path)
+                repository_path_encode = repository_path.encode('utf-8')
+
+                bounty_issue_encode = str(parsed_bounty_issue)
+                bounty_issue_encode = bounty_issue_encode.encode('utf-8')
+                passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
+                addresses = CommonRegex(merge_body).btc_addresses[0]
+                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
+                bounty_address = github.get_address_from_issue(parsed_bounty_issue)
+                amount = utils.get_address_balance(bounty_address)
+                with open(DEFAULT_WALLET_PATH, 'r') as f:
+                    json_data = json.load(f)
+                issue_name = json_data[parsed_bounty_issue]
+                multisig_wallet.send_bitcoin(str(issue_name), str(addresses), int(amount * 1e8), str(passphrase))
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
@@ -110,4 +131,4 @@ def bounty_badge(path):
 if __name__ == "__main__":
     if os.environ.get('USE_PROXYFIX', None) == 'true':
         app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(host='0.0.0.0', port='21337')
+    app.run(host='0.0.0.0', port='21336')

@@ -1,7 +1,9 @@
 import click
+from app.github import github
 
 @click.command()
 @click.argument('issue')
 @click.argument('description')
 def cli(issue, description):
-    print(issue + ' ' + description) #Dummy function to ensure that this is working. Will feed into broader script.
+    github.create_issue(issue, description)
+    print(issue + ' ' + description) 

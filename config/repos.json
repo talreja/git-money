@@ -1,7 +1,6 @@
 {
-    "path": "",
+    "path": "21hackers/git-money",
     "token": "",
-    "key": "secret",
-    "action": [["git", "pull", "origin", "master"] ]
-    
+    "action": [["git", "pull", "origin", "master"] ],
+    "address": "1DxmRibidDa1B9VGLmTa55vvqzd4YTtNUc"
 }
