@@ -1,6 +1,6 @@
 # git money
 
-**Please support bitcoin and borderless commerce by starring this repository.**
+# Please support bitcoin and borderless commerce by starring this repository.
 
 ## Let your work speak for itself.
 
