@@ -2,7 +2,7 @@
 
 # Please support bitcoin and borderless commerce by starring this repository.
 
-## Let your work speak for itself.
+## With git money you can let your work speak for itself.
 
 It shouldn’t matter where you are - the United States, Ukraine, an island, India
 or anywhere. If your code solves a problem, you should be paid. The quality of
