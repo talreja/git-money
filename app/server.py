@@ -9,10 +9,9 @@ import subprocess
 import requests
 import ipaddress
 import hmac
-import wallet, utils
-from github import github
+from app.github import github
 from hashlib import sha1
-from multisig_wallet import multisig_wallet
+from app.multisig_wallet import multisig_wallet
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
 from commonregex import CommonRegex
@@ -44,13 +43,12 @@ if os.environ.get('USE_PROXYFIX', None) == 'true':
 app = Flask(__name__)
 app.debug = os.environ.get('DEBUG') == 'true'
 
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         return 'OK'
     elif request.method == 'POST':
-        # Store the IP address of the requester
+    # Store the IP address of the requester
         request_ip = ipaddress.ip_address(u'{0}'.format(request.remote_addr))
 
         # If GHE_ADDRESS is specified, use it as the hook_blocks.
@@ -74,7 +72,7 @@ def index():
                 bounty_address = github.get_address_from_issue(parsed_bounty_issue)
                 amount = multisig_wallet.get_address_balance(bounty_address)
                 try:
-                    # use username to look up wallet Id
+                # use username to look up wallet Id
                     with open(DEFAULT_WALLET_PATH, 'r') as wallet:
                         data = json.loads(wallet.read())
                     for user in data:
@@ -111,7 +109,7 @@ def index():
 @app.route('/badge/<path:path>')
 def bounty_badge(path):
 
-    # Get values to draw on image
+# Get values to draw on image
     usd_per_btc = requests.get(
         'https://bitpay.com/api/rates/usd').json()['rate']
     bounty_in_satoshi = requests.get(
@@ -131,7 +129,7 @@ def bounty_badge(path):
     draw.text((20, 200), '{0} BTC'.format(
         bounty_in_btc), fill='black', font=font_btc)
     draw.text((55, 260), '({0} USD)'.format(bounty_in_usd),
-              fill='black', font=font_usd)
+            fill='black', font=font_usd)
 
     def serve_pil_image(pil_img):
         img_io = io.BytesIO()
@@ -142,7 +140,9 @@ def bounty_badge(path):
     return serve_pil_image(badge)
 
 
-if __name__ == "__main__":
-    if os.environ.get('USE_PROXYFIX', None) == 'true':
-        app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(host='0.0.0.0', port='21336')
+
+class server(object):
+    def run():
+        if os.environ.get('USE_PROXYFIX', None) == 'true':
+            app.wsgi_app = ProxyFix(app.wsgi_app)
+        app.run(host='0.0.0.0', port='21336')
