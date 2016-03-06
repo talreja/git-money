@@ -14,8 +14,8 @@ class multisig_wallet(object):
         print ('BitGo.session()')
         try:
             r = requests.get('http://localhost:3080/api/v1/user/session',
-                              headers = {'Authorization': 'Bearer ' + ACCESS_TOKEN,'Content-Type': 'application/json'},
-                              data = {})
+                             headers = {'Authorization': 'Bearer ' + ACCESS_TOKEN,'Content-Type': 'application/json'},
+                             data = {})
         except:
             print('BitGo Express: ' + 'Please ensure that BitGo Express is running in prod with a')
             print('BitGo Express: ' + 'valid access token from www.bitgo.com')
@@ -40,6 +40,10 @@ class multisig_wallet(object):
     def create_wallet(username, passphrase):
 
         ## Create a new wallet using BitGo Express 
+        print('Passphrase: ')
+        print(passphrase)
+        print(type(passphrase))
+
         payload = json.dumps({ "passphrase": passphrase, "label": username })
         try:
             r = requests.post('http://localhost:3080/api/v1/wallets/simplecreate',
@@ -67,8 +71,8 @@ class multisig_wallet(object):
         ## Setup wallet parameters
         walletId = r.json()['wallet']['id']
         user = r.json()['wallet']['label']
-        keychain = r.json()['wallet']['private']        
-        newWallet = {user: { "walletId": walletId, "keychain": keychain }}
+        keychain = r.json()['wallet']['private']
+        newWallet = {user: { "walletId": walletId, "keychain": keychain }, 'wallet_name': user}
 
         ## Save new wallet to bitgo_wallet.json
         try: 
@@ -234,7 +238,9 @@ class multisig_wallet(object):
             # Return if service is down
             if (serviceOk == False):
                 return None
-            
+        print('Passphrase: ')
+        print(passphrase)
+        print(type(passphrase))
         payload = json.dumps({"address": address, "amount": int(amount), "walletPassphrase": passphrase})
         #use the sender username to look up the sender id
         try:
@@ -261,6 +267,30 @@ class multisig_wallet(object):
         # Below the dust threshold
         if (r.status_code == 400):
             return r.json()
+
+        return str(r.json()['hash'])
+
+    @staticmethod        
+    def send_bitcoin_simple(walletId, address, amount, passphrase):
+        print('Sending Bitcoin')
+        payload = json.dumps({"address": address, "amount": int(amount), "walletPassphrase": passphrase})
+        #use the sender username to look up the sender id
+        try:
+            r = requests.post('http://localhost:3080/api/v1/wallet/' + walletId + '/sendcoins',
+                              headers = {'Authorization': 'Bearer ' + ACCESS_TOKEN,'content-type': 'application/json'},
+                              data = payload)
+        except:
+            print('Please ensure that you have BitGo Express running on your local machine')
+
+        if (r.status_code == 401):
+            return print(r.json())
+        # Insufficient funds, potentially low amount with high fees
+        if (r.status_code == 500):
+            amount_less_fees = r.json()['available'] - r.json()['fee']
+            return multisig_wallet.send_bitcoin_simple(walletId, address, amount_less_fees, passphrase)
+        # Below the dust threshold
+        if (r.status_code == 400):
+            return print(r.json())
 
         return str(r.json()['hash'])
 
@@ -329,6 +359,12 @@ class multisig_wallet(object):
             
         print(r.json())
 
+    @staticmethod        
+    def get_address_balance(address):
+
+        r = requests.get('http://localhost:3080/api/v1/address/' + address, headers = {'Authorization': 'Bearer ' + ACCESS_TOKEN})
+        return(r.json()['balance'])
+        
     @staticmethod        
     def ping():
         r = requests.post('http://localhost:3080/api/v1/ping', headers = {'Authorization': 'Bearer ' + ACCESS_TOKEN})

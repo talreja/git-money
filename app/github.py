@@ -1,10 +1,10 @@
 import json, os, io, datetime, hashlib
-import requests
+import requests, urllib
 from flask import g
 from commonregex import CommonRegex
 from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
-from multisig_wallet import multisig_wallet
+from app.multisig_wallet import multisig_wallet
 
 config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
 repository = json.loads(io.open(config_path, 'r').read())
@@ -25,12 +25,17 @@ class github(object):
         return r.json()['title']
         
     def _create_bitgo_wallet(issue_title, repository_path):
-        issue_title_encode = str(issue_title)
-        repository_path_encode = str(repository_path)
-
         issue_title_encode = issue_title.encode('utf-8')
         repository_path_encode = repository_path.encode('utf-8')
+        print('Issue title encode: ')
+        print(issue_title_encode)
+        print(type(issue_title_encode))
+        print('Repository path encode: ')
+        print(repository_path_encode)
+        print(type(repository_path_encode))
         passphrase = hashlib.sha256(repository_path_encode + issue_title_encode).hexdigest()
+        print('Passphrase: ' + passphrase)
+        print(type(passphrase))
         multisig_wallet.create_wallet(issue_title, passphrase)
         print('Wallet create')
         bounty_address = multisig_wallet.generate_address(str(issue_title))
@@ -40,10 +45,11 @@ class github(object):
 
     def _decorate_issue_params(issue_title, description):
         bitcoin_address = github._create_bitgo_wallet(issue_title, repository_path)
-        bounty_image = 'http://git-money-badge.mybluemix.net/badge/' + bitcoin_address
+        bitcoin_address_url = 'https://tradeblock.com/bitcoin/address/' + bitcoin_address
+#        bounty_image = 'http://git-money-badge.mybluemix.net/badge/' + bitcoin_address
         issue_title = issue_title
-        description = "<h6>Reward  (" + bitcoin_address + ")</h>\n\n![BOUNTY](" + bounty_image + ")" + "\n\n" + description
-
+#        description = "<h6>Reward  (" + bitcoin_address + ")</h>\n\n![BOUNTY](" + bounty_image + ")" + "\n\n" + description
+        description = "**Current Bounty: 0.02 BTC / $10** [Proof](" + bitcoin_address_url + ")\n*Submit a pull request containing your bitcoin address that resolves this issue and automatically get paid the amount above if it's merged.*\n\n**Bounty Details:**\n" + description
         params = { "title": issue_title, "body": description }
         params = json.dumps(params).encode('utf8')
         return params
