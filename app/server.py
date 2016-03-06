@@ -9,10 +9,9 @@ import subprocess
 import requests
 import ipaddress
 import hmac
-import wallet, utils
-from github import github
+from app.github import github
 from hashlib import sha1
-from multisig_wallet import multisig_wallet
+from app.multisig_wallet import multisig_wallet
 from PIL import Image, ImageFont, ImageDraw
 from flask import Flask, request, abort, send_file
 from commonregex import CommonRegex
@@ -33,19 +32,23 @@ config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.js
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
 
+DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
+                                   ".two1",
+                                   "wallet",
+                                   "multisig_wallet.json")
+
 if os.environ.get('USE_PROXYFIX', None) == 'true':
     from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 app.debug = os.environ.get('DEBUG') == 'true'
 
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         return 'OK'
     elif request.method == 'POST':
-        # Store the IP address of the requester
+    # Store the IP address of the requester
         request_ip = ipaddress.ip_address(u'{0}'.format(request.remote_addr))
 
         # If GHE_ADDRESS is specified, use it as the hook_blocks.
@@ -65,21 +68,30 @@ def index():
                 print('Merge state closed')
                 print('Merge Body: ' + merge_body)
                 parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)[0]
-
-                repository_path_encode = str(repository_path)
-                repository_path_encode = repository_path.encode('utf-8')
-
-                bounty_issue_encode = str(parsed_bounty_issue)
-                bounty_issue_encode = bounty_issue_encode.encode('utf-8')
-                passphrase = hashlib.sha256(repository_path + issue_title).hexdigest()
                 addresses = CommonRegex(merge_body).btc_addresses[0]
-                parsed_bounty_issue = re.findall(r"#(\w+)", merge_body)
                 bounty_address = github.get_address_from_issue(parsed_bounty_issue)
-                amount = utils.get_address_balance(bounty_address)
-                with open(DEFAULT_WALLET_PATH, 'r') as f:
-                    json_data = json.load(f)
-                issue_name = json_data[parsed_bounty_issue]
-                multisig_wallet.send_bitcoin(str(issue_name), str(addresses), int(amount * 1e8), str(passphrase))
+                amount = multisig_wallet.get_address_balance(bounty_address)
+                try:
+                # use username to look up wallet Id
+                    with open(DEFAULT_WALLET_PATH, 'r') as wallet:
+                        data = json.loads(wallet.read())
+                    for user in data:
+                        try:
+                            if (user['issue_number'] == int(parsed_bounty_issue)):
+                                print('Wallet found')
+                                wallet_name = user['wallet_name']
+                                walletId = user[wallet_name]['walletId']
+                        except:
+                            print('Loading wallet..')        
+
+                except:
+                    print('Wallet not found, creating new user...')
+
+                issue_title = wallet_name
+                repository_path_encode = repository_path.encode('utf-8')
+                issue_title_encode = issue_title.encode('utf-8')
+                passphrase = hashlib.sha256(repository_path_encode + issue_title_encode).hexdigest()
+                multisig_wallet.send_bitcoin_simple(walletId, str(addresses), amount, passphrase)
                 return json.dumps({'message': 'Pull request received'})
             return json.dumps({'message': 'Pull request payout failed'})
 
@@ -97,7 +109,7 @@ def index():
 @app.route('/badge/<path:path>')
 def bounty_badge(path):
 
-    # Get values to draw on image
+# Get values to draw on image
     usd_per_btc = requests.get(
         'https://bitpay.com/api/rates/usd').json()['rate']
     bounty_in_satoshi = requests.get(
@@ -117,7 +129,7 @@ def bounty_badge(path):
     draw.text((20, 200), '{0} BTC'.format(
         bounty_in_btc), fill='black', font=font_btc)
     draw.text((55, 260), '({0} USD)'.format(bounty_in_usd),
-              fill='black', font=font_usd)
+            fill='black', font=font_usd)
 
     def serve_pil_image(pil_img):
         img_io = io.BytesIO()
@@ -128,7 +140,9 @@ def bounty_badge(path):
     return serve_pil_image(badge)
 
 
-if __name__ == "__main__":
-    if os.environ.get('USE_PROXYFIX', None) == 'true':
-        app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(host='0.0.0.0', port='21336')
+
+class server(object):
+    def run():
+        if os.environ.get('USE_PROXYFIX', None) == 'true':
+            app.wsgi_app = ProxyFix(app.wsgi_app)
+        app.run(host='0.0.0.0', port='21336')
