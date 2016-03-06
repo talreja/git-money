@@ -9,7 +9,7 @@ from app.multisig_wallet import multisig_wallet
 config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
-GITHUN_TOKEN = os.environ['GITHUB_TOKEN']
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
                                    ".two1",
                                    "wallet",
