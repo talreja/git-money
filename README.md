@@ -65,6 +65,13 @@ how you want to **git money**.
 4. Then create a BitGo access token and set it as an environment variable under ACCESS_TOKEN **[here](https://www.bitgo.com)**.
 5. To set an issue enter `gitmoney 'ISSUE TITLE' 'ISSUE DESCRIPTION'`
 
+### Server Installation instructions
+1. Install npm and jpeg dev library: `sudo apt-get install libjpeg-dev npm`
+2. Use pip to install the required modules: `sudo pip3 install -r requirements.txt`
+3. Install BitGo Express following the readme at the link above.
+4. From your copy of the BitGo Express repo run: `nodejs bin/bitgo-express`
+5. Start the gitmoney server from your git-money repo: `python3 startserver.py`
+
 ### Questions? Comments?
 
 Please join [slack.21.co](https://slack.21.co/) or open an issue.
