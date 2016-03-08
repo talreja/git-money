@@ -1,6 +1,6 @@
-# git money
+# [Git Money](http://gitmoney.io)
 
-# Please support bitcoin and borderless commerce by starring this repository.
+[![](https://img.shields.io/badge/GitMoney-enabled-green.svg?style=plastic)](https://github.com/21hackers/git-money/issues?q=is%3Aissue+is%3Aopen+label%3A%22git+money%22)
 
 ## With git money you can let your work speak for itself.
 
