@@ -9,6 +9,7 @@ setup(
     py_modules=['gitmoney'],
         install_requires=[
             'Click',
+            'commonregex',
     ],
     entry_points='''
         [console_scripts]

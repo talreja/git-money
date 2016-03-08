@@ -61,8 +61,9 @@ how you want to **git money**.
 ### Installation instructions
 1. Install the git-money repository on your 21 Bitcoin Computer as you would with any GitHub repository.
 2. In the git-money folder that you just installed on your 21 Bitcoin Computer, run `sudo pip3 install --editable .` to install the gitmoney CLI functionality.
-3. In order to access the GitHub API, you must also create a Personal Access Token by clicking **[here](https://github.com/settings/tokens)**.
-4. This Personal Access Token should then be added to the repos.json file, which you can see **[here](https://github.com/davemc84/git-money/blob/master/config/repos.json)**. As with any API token, this should neither be shared nor stored in a public repository.
+3. In order to access the GitHub API, you must also create a Personal Access Token by clicking **[here](https://github.com/settings/tokens)** and set it as an environment variable as GITHUB_TOKEN.
+4. Then create a BitGo access token and set it as an environment variable under ACCESS_TOKEN **[here](https://www.bitgo.com)**.
+5. To set an issue enter `gitmoney 'ISSUE TITLE' 'ISSUE DESCRIPTION'`
 
 ### Questions? Comments?
 
