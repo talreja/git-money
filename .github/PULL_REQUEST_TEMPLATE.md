@@ -1,8 +1,10 @@
-NOTE: If this pull request you are about to submit is to claim a bounty, please
-make sure your pull request message text *correctly* resolves the corresponding
-issue as described in the following article:
-https://github.com/blog/1506-closing-issues-via-pull-requests
+If you are submitting a pull request to collect a bounty, please submit it in
+the following example format:
 
-Also, please don't forget to include your bitcoin address in the text as well.
+Resolves #123 (include the word 'Resolves' follwed by the issue number)
+Bitcoin Address: 38aBVgK9tBvJM1HKmzVy3pAX6TsYdt51sH (your Bitcoin address)
+Description: A brief high-level sentence or two describing your PR.
 
-======ADD YOUR PR MESSAGE TEXT BELOW THIS LINE======
+Please proceed with your pull request and remove this line and all preceding
+text once you've completed your pull request message. Thanks for your
+contribution!
