@@ -276,3 +276,15 @@ if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
   )
   document.querySelector('head').appendChild(msViewportStyle)
 }
+
+
+
+/* =================================
+===  Social Icons               ====
+=================================== */
+$(document).ready(function(){
+    $('.social-icons').on('click', 'a', function(){
+        window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+        return false;
+    });
+});
