@@ -6,13 +6,14 @@ from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
 from app.multisig_wallet import multisig_wallet
 
-config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
+config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/config.json'
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
 DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
                                    ".two1",
                                    "wallet",
                                    "multisig_wallet.json")
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
 class github(object):
     def get_github_issue(issue_number):
@@ -60,7 +61,7 @@ class github(object):
         params = github._decorate_issue_params(issue_title, description)
 
         github_url = "https://api.github.com/repos/" + repository['path'] + "/issues"
-        headers = { "Authorization": "token " + repository['token'],
+        headers = { "Authorization": "token " + GITHUB_TOKEN,
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache, no-store, must-revalidate"
         }
@@ -87,7 +88,7 @@ class github(object):
     def get_address_from_issue(issue_number):
 
         github_url = "https://api.github.com/repos/" + repository['path'] + '/issues/' + issue_number
-        headers = { "Authorization": "token " + repository['token'], "Content-Type": "application/json" }
+        headers = { "Authorization": "token " + GITHUB_TOKEN, "Content-Type": "application/json" }
 
         # Setup the request
         req = urllib.request.Request(github_url, headers=headers)
