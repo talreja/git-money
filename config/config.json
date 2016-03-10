@@ -1,6 +1,5 @@
 {
     "path": "21hackers/git-money",
-    "token": "",
     "action": [["git", "pull", "origin", "master"] ],
-    "address": "1DxmRibidDa1B9VGLmTa55vvqzd4YTtNUc"
+    "bitgo_path": "INSERT BITGO EXPRESS PATH HERE - https://github.com/bitgo/bitgo-express"
 }

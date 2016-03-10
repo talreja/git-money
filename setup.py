@@ -4,15 +4,16 @@
 from setuptools import setup
 
 setup(
-    name='gitmoney',
-    version='0.1',
-    py_modules=['gitmoney'],
+    name = 'gitmoney',
+    version = '0.1',
+    py_modules = ['gitmoney'],
         install_requires=[
             'Click',
             'commonregex',
     ],
-    entry_points='''
-        [console_scripts]
-        gitmoney=app.cli:cli
-    ''',
+    entry_points={
+        'console_scripts': [
+            'gitmoney = app.cli:cli',
+        ]
+    }
 )

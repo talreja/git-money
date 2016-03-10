@@ -28,7 +28,7 @@ module.
     import flask-github-webhook-handler.index as handler
 
 """
-config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
+config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/config.json'
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
 

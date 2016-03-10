@@ -6,7 +6,7 @@ from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
 from app.multisig_wallet import multisig_wallet
 
-config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/repos.json'
+config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config/config.json'
 repository = json.loads(io.open(config_path, 'r').read())
 repository_path = repository['path']
 GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
@@ -14,6 +14,7 @@ DEFAULT_WALLET_PATH = os.path.join(os.path.expanduser('~'),
                                    ".two1",
                                    "wallet",
                                    "multisig_wallet.json")
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
 class github(object):
     def get_github_issue(issue_number):
