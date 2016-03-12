@@ -1,4 +1,4 @@
-###Write a post on Medium supporting Git Money (4 paragraph minimum), and add a link to it in this file.
+###Write a post on Medium supporting Git Money (6 paragraph minimum), and add a link to it in this file.
 
 Below is some useful information to get you writing. This should give you a general overview of what Git Money is and how it works.
 
