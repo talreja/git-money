@@ -1,6 +1,0 @@
-gitmoney.egg-info/PKG-INFO
-gitmoney.egg-info/SOURCES.txt
-gitmoney.egg-info/dependency_links.txt
-gitmoney.egg-info/entry_points.txt
-gitmoney.egg-info/requires.txt
-gitmoney.egg-info/top_level.txt
