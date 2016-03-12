@@ -12,9 +12,9 @@ GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 BITGO_PATH = repository['bitgo_path']
 
 @click.command()
-@click.argument('issue')
-@click.argument('description')
-@click.option('--init', is_flag=True)
+@click.option('--issue', '-i', default=False)
+@click.option('--description', '-d', default=False)
+@click.option('--init', is_flag=True, default=False)
 def cli(issue, description, init):
     try:
         BITGO_PATH
@@ -33,8 +33,7 @@ def cli(issue, description, init):
     if (init):
         os.system(BITGO_PATH + '/bin/bitgo-express --debug --port 3080 --env prod --bind localhost &')
         server.run()
-        time.sleep(10)
-    github.create_issue(issue, description)
-        
+        return time.sleep(10)
+    return github.create_issue(issue, description)
 
 
