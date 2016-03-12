@@ -1,5 +1,5 @@
 import io, os
-import json
+import json, time
 import click
 import subprocess
 from app.github import github
@@ -14,8 +14,8 @@ BITGO_PATH = repository['bitgo_path']
 @click.command()
 @click.argument('issue')
 @click.argument('description')
-@click.option('--server', is_flag=True)
-def cli(issue, description, server):
+@click.option('--init', is_flag=True)
+def cli(issue, description, init):
     try:
         BITGO_PATH
     except:
@@ -30,9 +30,10 @@ def cli(issue, description, server):
     except:
         return print('Please set your GitHub access token before continuing')
     
-    if (server):
+    if (init):
         os.system(BITGO_PATH + '/bin/bitgo-express --debug --port 3080 --env prod --bind localhost &')
         server.run()
+        time.sleep(10)
     github.create_issue(issue, description)
         
 
