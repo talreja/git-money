@@ -62,6 +62,8 @@ def index():
             return json.dumps({'msg': 'Hi!'})
 
         if request.headers.get('X-GitHub-Event') == 'pull_request':
+            if (request.json['pull_request']['user']['site_admin'] == 'false'):
+                return json.dumps({'message': 'Pull request not submitted by site admin'})
             merge_state = request.json['pull_request']['state']
             merge_body = request.json['pull_request']['body']
             if (merge_state == 'closed'):
