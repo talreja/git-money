@@ -1,4 +1,4 @@
-###Write a post on Medium supporting Git Money (4 paragraph minimum), and add a link to it in this file.*
+###Write a post on Medium supporting Git Money (4 paragraph minimum), and add a link to it in this file.
 
 Below is some useful information to get you writing. This should give you a general overview of what Git Money is and how it works.
 
@@ -14,9 +14,9 @@ Git Money connects companies/projects with talent that they would otherwise not 
 
 Git Money is made up of a team of collaborators from the [21 slack channel](https://slack.21.co).
 
-**When was Git Money created?**
+**When and how was Git Money created?**
 
-This project came together at the first [21 hackers](http://21hackers.com) hackathon in January. The idea came about from a group of entrepreneurs and developers talking about how to get developers to work on projects We've been cranking away at building it out ever since. You can find the contributions since here: 
+This project came together at the first [21 hackers](http://21hackers.com) hackathon in January. The idea came about from a group of entrepreneurs and developers talking about how to get developers to work on projects that were being worked on outside of tech hubs. The project was architected and prototyped through a Google Hangouts video chat and continued to come together in the following weekends. You may find a list of contributors here:
 
 https://github.com/21hackers/git-money/graphs/contributors
 
