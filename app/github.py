@@ -1,6 +1,7 @@
 import json, os, io, datetime, hashlib
 import requests, urllib
 from flask import g
+from twitter import twitter
 from commonregex import CommonRegex
 from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
@@ -79,7 +80,9 @@ class github(object):
 
         with open(DEFAULT_WALLET_PATH, 'w') as f:
             f.write(json.dumps(json_data))
-        
+
+        # Send tweet
+        twitter.send("Bounty Issued: " + issue_title + " https://github.com/21hackers/git-money/issues/" + issue_number)
         # TODO: Take the response and check for an ACK, then return true, else handle error
         print(r.json())
 
