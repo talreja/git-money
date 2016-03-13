@@ -1,7 +1,7 @@
 import json, os, io, datetime, hashlib
 import requests, urllib
 from flask import g
-from twitter import twitter
+from app.twitter import twitter
 from commonregex import CommonRegex
 from two1.lib.wallet.hd_account import HDAccount
 from two1.lib.wallet.two1_wallet import Two1Wallet
