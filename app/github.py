@@ -82,7 +82,7 @@ class github(object):
             f.write(json.dumps(json_data))
 
         # Send tweet
-        twitter.send("Bounty Issued: " + issue_title + " https://github.com/21hackers/git-money/issues/" + issue_number)
+        twitter.send("Bounty Issued: " + issue_title + " https://github.com/21hackers/git-money/issues/" + str(issue_number))
         # TODO: Take the response and check for an ACK, then return true, else handle error
         print(r.json())
 
