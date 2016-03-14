@@ -20,7 +20,7 @@ beliefs or your skin color.
 
 We are the Bitcoin Legion and our home is Earth.
 
-Come help us change the world.
+Come stand with us.
 
 ## What is Git Money?
 
@@ -72,7 +72,6 @@ developers talking about how to get developers to work on projects that were
 being worked on outside of tech hubs. The project was architected and prototyped
 through a Google Hangouts video chat and continued to come together in the
 following weekends. You may find a list of contributors here:
-
 https://github.com/21hackers/git-money/graphs/contributors
 
 ## How can I get using Git Money?
@@ -80,8 +79,8 @@ https://github.com/21hackers/git-money/graphs/contributors
 You can read about using Git Money in your own repo here:
 https://github.com/21hackers/git-money
 
-If you want to work on bounties and make $ you can visit all gitmoney bounties
-here: https://github.com/21hackers/git-money/issues
+If you want to make money, here's a link to our opportunities:
+https://github.com/21hackers/git-money/issues
 
 Want to chat with the team? Drop us a comment below or reach out to us via
 twitter [@gitmoneyco](https://twitter.com/@gitmoneyco)
