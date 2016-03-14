@@ -20,7 +20,7 @@ beliefs or your skin color.
 
 We are the Bitcoin Legion and our home is Earth.
 
-Come help us change the world.
+Come stand with us.
 
 ## What is Git Money?
 
@@ -35,7 +35,7 @@ bitcoin.
 
 [Browse current bitcoin-payable Issues on GitHub](https://github.com/21hackers/git-money/issues?q=is%3Aissue+is%3Aopen+label%3A%22git+money%22).
 All Issues with a payout will contain the green label **git money** along with a
-"**Current Bounty:**" when viewed. The current payout for resolving in the issue
+"**Current Payout:**" when viewed. The current payout for resolving in the issue
 is denoted in BTC (Bitcoin) and US Dollars. If you have a question about the
 Issue, feel free to comment on it and ask! [New to
 git?](https://guides.github.com/activities/hello-world/)
@@ -69,7 +69,7 @@ how you want to **git money**.
 2. Assuming that no errors were encountered, your issue should now appear in your GitHub repository.
 3. Post links to your issue on the Internet (Reddit, Twitter, other social media).
 4. Review pull requests resolving the issue as they come in.
-5. Merge the pull request that best resolves the issue to unlock the bounty.
+5. Merge the pull request that best resolves the issue to unlock the payout.
 
 ### Installation instructions
 1. Install the git-money repository on your 21 Bitcoin Computer as you would with any GitHub repository.
