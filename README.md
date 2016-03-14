@@ -46,7 +46,7 @@ going!). Go ahead and get to work! All you need to do is clone the repo, create
 a branch, commit your changes and submit a pull request. In your pull request
 message, [make sure to note that it resolves the
 issue](https://github.com/blog/1506-closing-issues-via-pull-requests)  and also include your
-bitcoin address. [New to Bitcoin?](https://bitcoin.org/en/bitcoin-for-individuals)
+bitcoin address.
 
 ### git money
 
