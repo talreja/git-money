@@ -15,12 +15,11 @@ because it is hard.
 
 We've said it before and we'll say it again - it doesn't matter where you're
 from or who you are. We believe in the right to work anywhere on whatever you
-want. It doesn't matter your gender, your education, your social or spirtiual
+want. It doesn't matter your gender, your education, your social or spiritual
 beliefs or your skin color.
 
-We are the Bitcoin Legion and our home is Earth.
-
-Come stand with us.
+We are the Bitcoin Legion. Our home is the Earth and we work in the Cloud - you
+are welcome to join us.
 
 ## What is Git Money?
 
